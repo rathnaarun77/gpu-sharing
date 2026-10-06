@@ -1,0 +1,15 @@
+# Baseline: 1 pod = 1 full GPU (no sharing)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: whole-gpu
+  labels: {kai.scheduler/queue: team-a}
+  annotations: {run.ai/simulated-gpu-utilization: "80-95"}
+spec:
+  schedulerName: kai-scheduler
+  containers:
+    - name: c
+      image: ubuntu
+      command: ["sleep", "infinity"]
+      resources:
+        limits: {nvidia.com/gpu: 1}

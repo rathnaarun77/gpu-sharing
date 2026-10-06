@@ -1,0 +1,19 @@
+# Sharing by fraction: 4 pods x 0.5 GPU -> packed onto 2 GPUs
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: frac-half}
+spec:
+  replicas: 4
+  selector: {matchLabels: {app: frac-half}}
+  template:
+    metadata:
+      labels: {app: frac-half, kai.scheduler/queue: team-a}
+      annotations:
+        gpu-fraction: "0.5"
+        run.ai/simulated-gpu-utilization: "30-50"
+    spec:
+      schedulerName: kai-scheduler
+      containers:
+        - name: c
+          image: ubuntu
+          command: ["sleep", "infinity"]

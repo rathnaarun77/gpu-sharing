@@ -1,0 +1,19 @@
+# Sharing by memory: request 10 GiB of a 40 GiB GPU
+apiVersion: apps/v1
+kind: Deployment
+metadata: {name: frac-mem}
+spec:
+  replicas: 3
+  selector: {matchLabels: {app: frac-mem}}
+  template:
+    metadata:
+      labels: {app: frac-mem, kai.scheduler/queue: team-a}
+      annotations:
+        gpu-memory: "10240"
+        run.ai/simulated-gpu-utilization: "10-25"
+    spec:
+      schedulerName: kai-scheduler
+      containers:
+        - name: c
+          image: ubuntu
+          command: ["sleep", "infinity"]

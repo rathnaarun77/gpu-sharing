@@ -1,0 +1,6 @@
+topology:
+  nodePools:
+    default:
+      gpuProduct: NVIDIA-A100-SXM4-40GB
+      gpuCount: 4
+      gpuMemory: 40960
